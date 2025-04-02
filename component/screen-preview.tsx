@@ -1047,7 +1047,7 @@ export function ScreenPreview({
                 <div className="absolute bottom-16 w-full text-center italic left-0">
                   <p className="text-blue-500 font-semibold flex items-center justify-center gap-2 bg-[#121212]">
                     Strand AI
-                   <Image src={logomale} alt="Logo Male" className="w-5"/> 
+                   <Image src={logofemale} alt="Logo Male" className="w-5"/> 
                   </p>
                 </div>
 )}
