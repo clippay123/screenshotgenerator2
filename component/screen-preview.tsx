@@ -114,7 +114,8 @@ export function ScreenPreview({
   
       if (dbError) throw dbError;
   
-      console.log("Screenshot saved:", screenshotData.id);
+      // console.log("Screenshot saved:", screenshotData.id);
+      toast.success("Screenshot saved")
       return screenshotData.id;
     } catch (error) {
       console.error("Error saving screenshot:", error);
@@ -349,7 +350,7 @@ export function ScreenPreview({
   
       // Generate shareable link
       const shareableLink = `${process.env.NEXT_PUBLIC_BASE_URL}/screenshot/${screenshotId}`;
-  
+  toast.success('Screenshot Shared success')
       if (navigator.share) {
         await navigator.share({
           title: "Check out this screenshot",
