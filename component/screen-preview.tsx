@@ -703,10 +703,10 @@ export function ScreenPreview({
               <div className="grid grid-cols-2 gap-2">
                 <div className="bg-[#2C2D31] p-2 rounded-lg">
                   <div className="flex justify-between items-center">
-                    <div className="text-xs text-gray-400">Bald by Age</div>
+                    <div className="text-xs text-gray-400">Year Untill Bald</div>
                     <Info className="h-3 w-3 text-gray-400" />
                   </div>
-                  <div className="text-sm font-bold">{lossMetrics.yearsUntilBald.targetAge}</div>
+                  <div className="text-sm font-bold">{lossMetrics.yearsUntilBald.targetAge} years</div>
                   <div className="text-xs text-gray-400 mb-1">
                     {lossMetrics.yearsUntilBald.confidence}% confidence
                   </div>
