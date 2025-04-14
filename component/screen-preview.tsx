@@ -396,9 +396,9 @@ export function ScreenPreview({
             </div>
           </div>
 
-          <div className="md:flex justify-center"   >
+          <div className="flex justify-center"   >
             {/* iPhone 15 mockup */}
-            <div className="relative  w-full md:w-80 h-[650px] rounded-[45px] shadow-[0_0_2px_2px_rgba(255,255,255,0.1)] border-8 border-zinc-900"  ref={screenshotRef}>
+            <div className="relative  w-80 md:w-80 h-[650px] rounded-[45px] shadow-[0_0_2px_2px_rgba(255,255,255,0.1)] border-8 border-zinc-900"  ref={screenshotRef}>
        
         <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-[90px] h-[22px] bg-zinc-900 rounded-full z-20">
         </div>
@@ -517,9 +517,9 @@ export function ScreenPreview({
                 {screenType === "Hair Attributes" && (
                   <div className="grid grid-cols-2 gap-3 p-4">
                     {visibleAttributeMetrics.map(({ key, value, percentage }) => (
-                      <div key={key} className="bg-[#2B2C30] p-3 rounded-xl">
+                      <div key={key}                            className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-900/30" : "border  border-[#505257]"}`}>
                         <div className="flex justify-between items-center mb-1">
-                          <div className="text-sm text-gray-400">
+                          <div className={`text-sm ${gender==="Female"? "text-pink-300" : "text-gray-400"}`}>
                             {key === "type" ? "Type" : key.charAt(0).toUpperCase() + key.slice(1)}
                           </div>
                           <Info className="h-4 w-4 text-gray-400" />
@@ -541,13 +541,13 @@ export function ScreenPreview({
                   <div className="px-4 space-y-3 mt-2">
                     {/* Scalp Health - Main metric (only shown for males and if visible) */}
                     {gender === "Male" && healthMetrics.scalpHealth.visible ? (
-                      <div className="bg-[#2B2C30] p-3 rounded-lg">
+                      <div className="bg-[#2C2D30] p-3 rounded-2xl drop-shadow-xs border  border-[#505257]">
                         <div className="flex justify-between items-center mb-1">
-                          <div className="text-sm text-gray-400">Scalp Health</div>
+                          <div className="text-sm text-gray-400">Hair Health</div>
                           <Info className="h-4 w-4 text-gray-400" />
                         </div>
                         <div className="text-2xl font-bold mb-2">{healthMetrics.scalpHealth.value}</div>
-                        <div className="h-1.5 bg-[#2B2C30] rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-[#2C2D30] rounded-full overflow-hidden">
                           <div
                             className={`h-full ${getProgressBarColor(healthMetrics.scalpHealth.percentage, true)}`}
                             style={{ width: `${healthMetrics.scalpHealth.percentage}%` }}
@@ -556,22 +556,19 @@ export function ScreenPreview({
                       </div>
                     ) : gender === "Female" && healthMetrics.scalpHealth.visible ? (
                       // For females, show a special header with pink accents
-                      <div className="bg-[#2B2C30] p-3 rounded-lg">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <div className="w-8 h-8 rounded-full bg-pink-900/50 flex items-center justify-center mr-3">
-                              <span className="text-pink-300">✨</span>
-                            </div>
-                            <div>
-                              <div className="text-sm text-pink-300">Hair Health Report</div>
-                              <div className="text-xl font-bold text-white">
-                                {healthMetrics.scalpHealth.value} Overall Health
-                              </div>
-                            </div>
-                          </div>
-                          <Info className="h-4 w-4 text-pink-300" />
-                        </div>
+                      <div className="bg-[#2C2D30] p-3 rounded-2xl drop-shadow-xs border  border-pink-900/30">
+                      <div className="flex justify-between items-center mb-1">
+                        <div className="text-sm text-pink-300">Hair Health</div>
+                        <Info className="h-4 w-4 text-pink-300" />
                       </div>
+                      <div className="text-2xl font-bold mb-2">{healthMetrics.scalpHealth.value}</div>
+                      <div className="h-1.5 bg-[#2C2D30] rounded-full overflow-hidden">
+                        <div
+                          className={`h-full ${getProgressBarColor(healthMetrics.scalpHealth.percentage, true)}`}
+                          style={{ width: `${healthMetrics.scalpHealth.percentage}%` }}
+                        ></div>
+                      </div>
+                    </div>
                     ) : null}
 
                     {/* Other health metrics in a grid */}
@@ -581,7 +578,7 @@ export function ScreenPreview({
                         .map(({ key, value, percentage }) => (
                           <div
                             key={key}
-                            className={`bg-[#2B2C30] p-3 rounded-lg ${gender === "Female" ? "border border-pink-900/30" : ""}`}
+                            className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-900/30" : "border  border-[#505257]"}`}
                           >
                             <div className="flex justify-between items-center mb-1">
                               <div className={`text-sm ${gender === "Female" ? "text-pink-300" : "text-gray-400"}`}>
@@ -601,7 +598,7 @@ export function ScreenPreview({
                     </div>
 
                     {/* Additional section for females */}
-                    {gender === "Female" && (
+                    {/* {gender === "Female" && (
                       <div className="bg-gray-800 p-3 rounded-lg border border-pink-900/30">
                         <div className="flex justify-between items-center mb-3">
                           <div className="text-sm text-pink-300">Recommended Treatment</div>
@@ -613,7 +610,7 @@ export function ScreenPreview({
                           improve overall hair health.
                         </div>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 )}
 
@@ -624,7 +621,7 @@ export function ScreenPreview({
           <div className="px-3 space-y-2 pt-6 h-full">
             {/* Hairloss Stage with Gauge - Reduced padding and margins */}
             {lossMetrics.hairlossStage.visible && (
-              <div className="bg-[#2C2D31] p-2 rounded-xl text-white">
+              <div    className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-900/30" : "border  border-[#505257]"}`}>
                 <div className="flex justify-between items-center">
                   <div className="text-xs text-gray-400">Hairloss Stage</div>
                   <Info className="h-3 w-3 text-gray-400" />
@@ -666,7 +663,7 @@ export function ScreenPreview({
             {/* Risk of Recession & Hair Loss - Reduced size */}
             <div className="grid grid-cols-2 gap-2">
               {lossMetrics.riskOfRecession.visible && (
-                <div className="bg-[#2C2D31] p-2 rounded-lg">
+                <div    className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-900/30" : "border  border-[#505257]"}`}>
                   <div className="flex justify-between items-center">
                     <div className="text-xs text-gray-400">Recession Risk</div>
                     <Info className="h-3 w-3 text-gray-400" />
@@ -816,7 +813,7 @@ export function ScreenPreview({
                     {/* Face Shape */}
                     {styleMetrics.faceShape.visible && (
                       <div
-                        className={`bg-[#2B2C30] p-3 rounded-lg flex items-center ${gender === "Female" ? "border border-pink-900/30" : ""}`}
+                        className={`bg-[#2C2D30] p-3 rounded-lg flex items-center ${gender === "Female" ? "border border-pink-900/30" : ""}`}
                       >
                         <div className="mr-3">
                           <div
@@ -860,7 +857,7 @@ export function ScreenPreview({
     
     <div
       key={index}
-      className={`bg-[#2B2C30] rounded-lg overflow-hidden ${
+      className={`bg-[#2C2D30] rounded-lg overflow-hidden ${
         gender === "Female" ? "border border-pink-900/30" : ""
       }`}
     >
