@@ -20,6 +20,7 @@ import { createClient } from "@supabase/supabase-js"
 import logomale from "@/public/assest/logomale.png"
 import logofemale from "@/public/assest/logofemale.png"
 import imagePla from "@/public/assest/imageplaceholder.svg"
+import arrowRight from "@/public/assest/arrowright.svg";
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -201,7 +202,7 @@ export function ScreenPreview({
   const getProgressBarColor = (percentage: number, isHealth = false) => {
     // For female, always use pink-based colors
     if (gender === "Female") {
-      if (percentage >= 80) return "bg-pink-500"
+      if (percentage >= 80) return "bg-[#D8B5F4]"
       if (percentage >= 50) return "bg-pink-400"
       return "bg-pink-300"
     }
@@ -215,7 +216,7 @@ export function ScreenPreview({
 
     // For regular metrics (male)
     if (percentage >= 80) return "bg-green-500"
-    if (percentage >= 50) return "bg-blue-500"
+    if (percentage >= 50) return "bg-[#764AF7]"
     return "bg-yellow-500"
   }
 
@@ -479,7 +480,7 @@ export function ScreenPreview({
                 </div>
                 {gender==='Female' && (
                 <div className=" w-full text-center italic">
-                  <p className={gender === "Female" ? "text-pink-500 font-semibold flex justify-center gap-2 items-center" : "text-blue-500 font-semibold flex items-center justify-center gap-2"}>
+                  <p className={gender === "Female" ? "text-white font-semibold flex justify-center gap-2 items-center" : "text-white font-semibold flex items-center justify-center gap-2"}>
                     Strand AI
                     {/* <Brush className="w-4 h-4"/> */}
                     <Image src={logofemale} alt="Logo Female"  className="h-7"/>
@@ -517,12 +518,12 @@ export function ScreenPreview({
                 {screenType === "Hair Attributes" && (
                   <div className="grid grid-cols-2 gap-3 p-4">
                     {visibleAttributeMetrics.map(({ key, value, percentage }) => (
-                      <div key={key}                            className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-900/30" : "border  border-[#505257]"}`}>
+                      <div key={key}                            className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-200/20 bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257] "}`}>
                         <div className="flex justify-between items-center mb-1">
-                          <div className={`text-sm ${gender==="Female"? "text-pink-300" : "text-gray-400"}`}>
+                          <div className={`text-sm ${gender==="Female"? "text-[#FFFFFFB3]" : "text-[#FFFFFFB3]"}`}>
                             {key === "type" ? "Type" : key.charAt(0).toUpperCase() + key.slice(1)}
                           </div>
-                          <Info className="h-4 w-4 text-gray-400" />
+                          <Info className="h-4 w-4 text-[#FFFFFFB3]" />
                         </div>
                         <div className="text-xl font-bold mb-2">{value}</div>
                         <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
@@ -543,11 +544,11 @@ export function ScreenPreview({
                     {gender === "Male" && healthMetrics.scalpHealth.visible ? (
                       <div className="bg-[#2C2D30] p-3 rounded-2xl drop-shadow-xs border  border-[#505257]">
                         <div className="flex justify-between items-center mb-1">
-                          <div className="text-sm text-gray-400">Hair Health</div>
-                          <Info className="h-4 w-4 text-gray-400" />
+                          <div className="text-sm text-[#FFFFFFB3] font-medium">Hair Health</div>
+                          <Info className="h-4 w-4 text-[#FFFFFFB3]" />
                         </div>
                         <div className="text-2xl font-bold mb-2">{healthMetrics.scalpHealth.value}</div>
-                        <div className="h-1.5 bg-[#2C2D30] rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
                           <div
                             className={`h-full ${getProgressBarColor(healthMetrics.scalpHealth.percentage, true)}`}
                             style={{ width: `${healthMetrics.scalpHealth.percentage}%` }}
@@ -556,19 +557,24 @@ export function ScreenPreview({
                       </div>
                     ) : gender === "Female" && healthMetrics.scalpHealth.visible ? (
                       // For females, show a special header with pink accents
-                      <div className="bg-[#2C2D30] p-3 rounded-2xl drop-shadow-xs border  border-pink-900/30">
+                      <div className="p-3 rounded-2xl drop-shadow-xs border border-pink-200/20 bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]">
                       <div className="flex justify-between items-center mb-1">
-                        <div className="text-sm text-pink-300">Hair Health</div>
-                        <Info className="h-4 w-4 text-pink-300" />
+                        <div className="text-sm text-[#FFFFFFB3] font-medium">Scalp Health</div>
+                        <Info className="h-4 w-4 text-[#FFFFFFB3]" />
                       </div>
                       <div className="text-2xl font-bold mb-2">{healthMetrics.scalpHealth.value}</div>
-                      <div className="h-1.5 bg-[#2C2D30] rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
                         <div
                           className={`h-full ${getProgressBarColor(healthMetrics.scalpHealth.percentage, true)}`}
                           style={{ width: `${healthMetrics.scalpHealth.percentage}%` }}
                         ></div>
                       </div>
                     </div>
+                    
+
+                    
+                    
+                    
                     ) : null}
 
                     {/* Other health metrics in a grid */}
@@ -578,13 +584,13 @@ export function ScreenPreview({
                         .map(({ key, value, percentage }) => (
                           <div
                             key={key}
-                            className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-900/30" : "border  border-[#505257]"}`}
+                            className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-200/20 bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257]"}`}
                           >
                             <div className="flex justify-between items-center mb-1">
-                              <div className={`text-sm ${gender === "Female" ? "text-pink-300" : "text-gray-400"}`}>
+                              <div className={`text-sm ${gender === "Female" ? "text-[#FFFFFFB3]" : "text-[#FFFFFFB3]"}`}>
                                 {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, " $1")}
                               </div>
-                              <Info className={`h-4 w-4 ${gender === "Female" ? "text-pink-300" : "text-gray-400"}`} />
+                              <Info className={`h-4 w-4 ${gender === "Female" ? "text-[#FFFFFFB3]" : "text-[#FFFFFFB3]"}`} />
                             </div>
                             <div className="text-xl font-bold mb-2">{value}</div>
                             <div className="h-1.5 bg-gray-700 rounded-full overflow-hidden">
@@ -605,7 +611,7 @@ export function ScreenPreview({
                           <Info className="h-4 w-4 text-pink-300" />
                         </div>
                         <div className="text-lg font-medium mb-2">Deep Conditioning Treatment</div>
-                        <div className="text-sm text-gray-400">
+                        <div className="text-sm text-[#FFFFFFB3]">
                           Based on your hair health analysis, we recommend a weekly deep conditioning treatment to
                           improve overall hair health.
                         </div>
@@ -621,14 +627,14 @@ export function ScreenPreview({
           <div className="px-3 space-y-2 pt-6 h-full">
             {/* Hairloss Stage with Gauge - Reduced padding and margins */}
             {lossMetrics.hairlossStage.visible && (
-              <div    className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-900/30" : "border  border-[#505257]"}`}>
+              <div    className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-200/20 bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257] " }`}>
                 <div className="flex justify-between items-center">
-                  <div className="text-xs text-gray-400">Hairloss Stage</div>
-                  <Info className="h-3 w-3 text-gray-400" />
+                  <div className="text-xs text-[#FFFFFFB3]">Hairloss Stage</div>
+                  <Info className="h-3 w-3 text-[#FFFFFFB3]" />
                 </div>
                 {lossMetrics.hairLossType.visible && (
                   <>
-                    <div className="text-xs text-gray-400">Hair Loss Type</div>
+                    <div className="text-xs text-[#FFFFFFB3]">Hair Loss Type</div>
                     <div className="text-sm font-bold mb-1">{lossMetrics.hairLossType.value}</div>
                   </>
                 )}
@@ -663,15 +669,15 @@ export function ScreenPreview({
             {/* Risk of Recession & Hair Loss - Reduced size */}
             <div className="grid grid-cols-2 gap-2">
               {lossMetrics.riskOfRecession.visible && (
-                <div    className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-900/30" : "border  border-[#505257]"}`}>
+                <div    className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-200/20  bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257]"}`}>
                   <div className="flex justify-between items-center">
-                    <div className="text-xs text-gray-400">Recession Risk</div>
-                    <Info className="h-3 w-3 text-gray-400" />
+                    <div className="text-xs text-[#FFFFFFB3]">Recession Risk</div>
+                    <Info className="h-3 w-3 text-[#FFFFFFB3]" />
                   </div>
                   <div className="text-sm font-bold mb-1">{lossMetrics.riskOfRecession.value}</div>
                   <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
                     <div
-                      className={`h-full ${gender === "Female" ? "bg-pink-500" : "bg-blue-500"}`}
+                      className={`h-full ${gender === "Female" ? "bg-[#D8B5F4]" : "bg-[#764AF7]"}`}
                       style={{ width: `${lossMetrics.riskOfRecession.percentage}%` }}>
                     </div>
                   </div>
@@ -679,15 +685,15 @@ export function ScreenPreview({
               )}
 
               {lossMetrics.hairLoss.visible && (
-                <div className="bg-[#2C2D31] p-2 rounded-lg">
+                <div className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-200/20  bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257]"}`}>
                   <div className="flex justify-between items-center">
-                    <div className="text-xs text-gray-400">Hair Loss</div>
-                    <Info className="h-3 w-3 text-gray-400" />
+                    <div className="text-xs text-[#FFFFFFB3]">Hair Loss</div>
+                    <Info className="h-3 w-3 text-[#FFFFFFB3]" />
                   </div>
                   <div className="text-sm font-bold mb-1">{lossMetrics.hairLoss.value}</div>
                   <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
                     <div
-                      className={`h-full ${gender === "Female" ? "bg-pink-500" : "bg-blue-500"}`}
+                      className={`h-full ${gender === "Female" ? "bg-[#D8B5F4]" : "bg-[#764AF7]"}`}
                       style={{ width: `${lossMetrics.hairLoss.percentage}%` }}>
                     </div>
                   </div>
@@ -698,19 +704,19 @@ export function ScreenPreview({
             {/* Bald by Age & Hair Thickness - Reduced size */}
             {lossMetrics.advancedMetricsVisible && (
               <div className="grid grid-cols-2 gap-2">
-                <div className="bg-[#2C2D31] p-2 rounded-lg">
+                <div  className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-200/20  bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257]"}`}>
                   <div className="flex justify-between items-center">
-                    <div className="text-xs text-gray-400">Year Untill Bald</div>
-                    <Info className="h-3 w-3 text-gray-400" />
+                    <div className="text-xs text-[#FFFFFFB3]">Year Untill Bald</div>
+                    <Info className="h-3 w-3 text-[#FFFFFFB3]" />
                   </div>
                   <div className="text-sm font-bold">{lossMetrics.yearsUntilBald.targetAge} years</div>
-                  <div className="text-xs text-gray-400 mb-1">
+                  <div className="text-xs text-[#FFFFFFB3] mb-1">
                     {lossMetrics.yearsUntilBald.confidence}% confidence
                   </div>
                   <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
                     <div
                       className={`h-full ${gender === "Female"
-                        ? "bg-pink-500"
+                        ? "bg-[#D8B5F4]"
                         : lossMetrics.yearsUntilBald.value > 10
                           ? "bg-green-500"
                           : "bg-orange-500"}`}
@@ -719,16 +725,16 @@ export function ScreenPreview({
                   </div>
                 </div>
 
-                <div className="bg-[#2C2D31] p-2 rounded-lg">
+                <div  className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-200/20  bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257]"}`}>
                   <div className="flex justify-between items-center">
-                    <div className="text-xs text-gray-400">Hair Thickness</div>
-                    <Info className="h-3 w-3 text-gray-400" />
+                    <div className="text-xs text-[#FFFFFFB3]">Hair Thickness</div>
+                    <Info className="h-3 w-3 text-[#FFFFFFB3]" />
                   </div>
                   <div className="text-sm font-bold mb-1">{lossMetrics.hairThickness.value}</div>
                   <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
                     <div
                       className={`h-full ${gender === "Female"
-                        ? "bg-pink-500"
+                        ? "bg-[#D8B5F4]"
                         : lossMetrics.hairThickness.percentage > 70
                           ? "bg-green-500"
                           : lossMetrics.hairThickness.percentage > 40
@@ -743,34 +749,34 @@ export function ScreenPreview({
 
             {/* Scalp Hair Counts - More compact version */}
             {lossMetrics.scalpHairCounts.visible && (
-              <div className="bg-[#2C2D31] p-2 rounded-lg">
+              <div className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-200/20  bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257]"}`}>
                 <div className="flex justify-between items-center">
-                  <div className="text-xs text-gray-400">Scalp Hair Counts</div>
-                  <Info className="h-3 w-3 text-gray-400" />
+                  <div className="text-xs text-[#FFFFFFB3]">Scalp Hair Counts</div>
+                  <Info className="h-3 w-3 text-[#FFFFFFB3]" />
                 </div>
                 <hr className="h-px mx-2 bg-gray-700 border-0 my-1" />
                 <div className="grid grid-cols-3 gap-1 text-center">
                   <div>
-                    <div className="text-xs text-gray-400">Frontal</div>
+                    <div className="text-xs text-[#FFFFFFB3]">Frontal</div>
                     <div className="text-xs font-bold">
                       {lossMetrics.scalpHairCounts.frontal.value}
-                      <span className="text-xs text-gray-400">{lossMetrics.scalpHairCounts.frontal.unit}</span>
+                      <span className="text-xs text-[#FFFFFFB3]">{lossMetrics.scalpHairCounts.frontal.unit}</span>
                     </div>
                   </div>
 
                   <div>
-                    <div className="text-xs text-gray-400">Occipital</div>
+                    <div className="text-xs text-[#FFFFFFB3]">Occipital</div>
                     <div className="text-xs font-bold">
                       {lossMetrics.scalpHairCounts.occipital.value}
-                      <span className="text-xs text-gray-400">{lossMetrics.scalpHairCounts.occipital.unit}</span>
+                      <span className="text-xs text-[#FFFFFFB3]">{lossMetrics.scalpHairCounts.occipital.unit}</span>
                     </div>
                   </div>
 
                   <div>
-                    <div className="text-xs text-gray-400">Vertex</div>
+                    <div className="text-xs text-[#FFFFFFB3]">Vertex</div>
                     <div className="text-xs font-bold">
                       {lossMetrics.scalpHairCounts.vertex.value}
-                      <span className="text-xs text-gray-400">{lossMetrics.scalpHairCounts.vertex.unit}</span>
+                      <span className="text-xs text-[#FFFFFFB3]">{lossMetrics.scalpHairCounts.vertex.unit}</span>
                     </div>
                   </div>
                 </div>
@@ -790,14 +796,14 @@ export function ScreenPreview({
               )}
               <div className="grid grid-cols-2 gap-3">
                 <button
-                  className={`border ${gender === "Female" ? "border-pink-500 text-pink-500" : "border-blue-500 text-blue-500"} bg-transparent rounded-full py-1.5 flex items-center justify-center gap-1 text-xs font-medium`}
+                  className={`border ${gender === "Female" ? "border-[#D8B5F4] text-[#D8B5F4]" : "border-[#764AF7] text-[#764AF7]"} bg-transparent rounded-full py-1.5 flex items-center justify-center gap-1 text-xs font-medium`}
                   onClick={saveScreenshot}>
                   Save
                   <Download className="h-3 w-3" />
                 </button>
                 <button
                   onClick={shareScreenshot}
-                  className={`${gender === "Female" ? "bg-pink-500" : "bg-blue-500"} rounded-full py-1.5 flex items-center justify-center gap-1 text-xs font-medium text-white`}>
+                  className={`${gender === "Female" ? "bg-[#D8B5F4]" : "bg-[#764AF7]"} rounded-full py-1.5 flex items-center justify-center gap-1 text-xs font-medium text-white`}>
                   Share
                   <Send className="h-3 w-3" />
                 </button>
@@ -811,9 +817,10 @@ export function ScreenPreview({
                 {screenType === "Hair Style" && (
                   <div className="px-4 space-y-3 mt-2 overflow-y-auto h-full mb-4">
                     {/* Face Shape */}
+                  
                     {styleMetrics.faceShape.visible && (
                       <div
-                        className={`bg-[#2C2D30] p-3 rounded-lg flex items-center ${gender === "Female" ? "border border-pink-900/30" : ""}`}
+                        className={`bg-[#2C2D30] p-3 rounded-lg flex items-center ${gender === "Female" ? "border border-pink-200/20  bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35] " : "border  border-[#505257]"}`}
                       >
                         <div className="mr-3">
                           <div
@@ -823,7 +830,7 @@ export function ScreenPreview({
                           </div>
                         </div>
                         <div>
-                          <div className={`text-sm ${gender === "Female" ? "text-pink-300" : "text-gray-400"}`}>
+                          <div className={`text-sm ${gender === "Female" ? "text-pink-300" : "text-[#FFFFFFB3]"}`}>
                             Face Shape
                           </div>
                           <div className="text-xl font-bold">{styleMetrics.faceShape.value}</div>
@@ -850,16 +857,14 @@ export function ScreenPreview({
                         <div className={`text-lg font-bold ${gender === "Female" ? "text-pink-300" : ""}`}>
                           Recommended Haircuts
                         </div>
-                        <div className="text-xs text-gray-400">Tailored to your face shape & hair attributes</div>
+                        <div className="text-xs text-[#FFFFFFB3]">Tailored to your face shape & hair attributes</div>
 
                         <div className="grid grid-cols-2 gap-2">
   {visibleRecommendedStyles.map((style, index) => (
     
     <div
       key={index}
-      className={`bg-[#2C2D30] rounded-lg overflow-hidden ${
-        gender === "Female" ? "border border-pink-900/30" : ""
-      }`}
+      className={`bg-[#2C2D30] rounded-2xl ${gender === "Female" ? "border border-pink-200/20  bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257]"}`}
     >
       <div className="aspect-square relative">
       <Image
@@ -877,7 +882,7 @@ export function ScreenPreview({
         >
           {style.name}
         </div>
-        <div className="text-xs text-gray-400 line-clamp-3">
+        <div className="text-xs text-[#FFFFFFB3] line-clamp-3">
           {style.description}
         </div>
       </div>
@@ -886,12 +891,18 @@ export function ScreenPreview({
 </div>
 
 
-                        <button
-                          className={`w-full ${gender === "Female" ? "bg-pink-600" : "bg-blue-600"} rounded-lg py-2 mt-2 flex items-center justify-center text-sm`}
-                        >
-                          <span className="mr-2">HAIRSTYLE GUIDE</span>
-                          <span>→</span>
-                        </button>
+<button
+  className={`w-full ${
+    gender === "Female"
+      ? "bg-gradient-to-r from-pink-500 to-purple-500"
+      : "bg-gradient-to-r from-indigo-600 to-purple-600"
+  } rounded-xl py-3 mt-1 flex items-center justify-center text-white font-semibold text-sm shadow-lg hover:opacity-90 transition-all duration-300`}
+>
+  <span className="mr-2">Hairstyle Guide</span>
+  {/* <span>→</span> */}
+  <Image src={arrowRight} alt="Image" />
+</button>
+
                       </div>
                     )}
                   </div>
@@ -901,7 +912,7 @@ export function ScreenPreview({
                 {screenType === "Action Plan" && (
   <div className="px-3  space-y-2 h-full relative">
     {/* Description - Reduced padding and smaller text */}
-    <div className="bg-[#2C2D31] p-2 rounded-lg">
+    <div  className={`p-2 bg-[#2C2D30]  rounded-2xl ${gender === "Female" ? "border border-pink-200/20  bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257]"}`}>
       <p className="text-xs text-gray-300 leading-tight line-clamp-3">{actionMetrics.description}</p>
     </div>
 
@@ -909,9 +920,9 @@ export function ScreenPreview({
     <div className="grid grid-cols-2 gap-2">
       {actionMetrics.frequency.visible && (
         <div
-          className={`bg-[#2C2D31] p-2 rounded-lg ${gender === "Female" ? "border border-pink-900/30" : ""}`}
+        className={`bg-[#2C2D30] p-2 rounded-2xl ${gender === "Female" ? "border border-pink-200/20  bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257]"}`}
         >
-          <div className={`text-xs ${gender === "Female" ? "text-pink-300" : "text-gray-400"}`}>
+          <div className={`text-xs ${gender === "Female" ? "text-pink-300" : "text-[#FFFFFFB3]"}`}>
             Frequency
           </div>
           <div className="text-sm font-bold">{actionMetrics.frequency.value}</div>
@@ -922,7 +933,7 @@ export function ScreenPreview({
         <div
           className={`bg-[#2C2D31] p-2 rounded-lg ${gender === "Female" ? "border border-pink-900/30" : ""}`}
         >
-          <div className={`text-xs ${gender === "Female" ? "text-pink-300" : "text-gray-400"}`}>
+          <div className={`text-xs ${gender === "Female" ? "text-pink-300" : "text-[#FFFFFFB3]"}`}>
             Duration
           </div>
           <div className="text-sm font-bold">{actionMetrics.duration.value}</div>
@@ -946,7 +957,7 @@ export function ScreenPreview({
   {actionMetrics.beforeAfterImage.enabled && (
     
     <div className="bg-[#2C2D31] p-2 rounded-lg">
-      <div className={`text-xs ${gender === "Female" ? "text-pink-300" : "text-gray-400"} mb-1`}>
+      <div className={`text-xs ${gender === "Female" ? "text-pink-300" : "text-[#FFFFFFB3]"} mb-1`}>
         Before & After
       </div>
       <div className="h-8/10 bg-[#2C2D31] rounded-lg overflow-hidden relative">
@@ -972,7 +983,7 @@ export function ScreenPreview({
           {visibleRecommendedProducts.slice(0, 2).map((product, index) => (
             <div
               key={index}
-              className={`bg-[#2C2D31] rounded-lg p-1.5 flex items-center ${gender === "Female" ? "border border-pink-900/30" : ""}`}
+              className={`bg-[#2C2D30] p-1.5 rounded-2xl flex items-center ${gender === "Female" ? "border border-pink-200/20  bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257]"}`}
             >
               <div className="relative w-10 h-10 shrink-0 rounded overflow-hidden mr-1">
                 <Image
@@ -986,7 +997,7 @@ export function ScreenPreview({
                 <div className={`text-xs font-bold truncate ${gender === "Female" ? "text-pink-300" : ""}`}>
                   {product.name}
                 </div>
-                <div className="text-xs text-gray-400 line-clamp-2">{product.description}</div>
+                <div className="text-xs text-[#FFFFFFB3] line-clamp-2">{product.description}</div>
               </div>
             </div>
           ))}
@@ -997,7 +1008,12 @@ export function ScreenPreview({
     {/* Shop Now Button - Moved closer to recommended products */}
     {visibleRecommendedProducts.length > 0 && (
       <button
-        className={`w-full ${gender === "Female" ? "bg-pink-600" : "bg-blue-600"} rounded-lg py-1.5 flex items-center justify-center text-sm`}
+      className={`w-full ${
+        gender === "Female"
+          ? "bg-gradient-to-r from-pink-500 to-purple-500"
+          : "bg-gradient-to-r from-indigo-600 to-purple-600"
+      } rounded-full py-3 flex items-center justify-center text-white font-semibold text-sm shadow-lg hover:opacity-90 transition-all duration-300`}
+    
       >
         <ShoppingBag className="mr-1 h-3 w-3" />
         <span>SHOP NOW</span>
@@ -1009,7 +1025,7 @@ export function ScreenPreview({
       {/* Brand Logo */}
       {gender === 'Male' && (
         <div className="w-full text-center italic mb-2">
-          <p className="text-blue-500 font-semibold flex items-center justify-center gap-1 bg-[#121212] text-xs">
+          <p className="text-white font-semibold flex items-center justify-center gap-1 bg-[#121212] text-xs">
             Strand AI
             <Image src={logomale} alt="Logo Male" className="w-4" />
           </p>
@@ -1019,14 +1035,14 @@ export function ScreenPreview({
       {/* Save/Share Buttons */}
       <div className="grid grid-cols-2 gap-3">
         <button
-          className={`border ${gender === "Female" ? "border-pink-500 text-pink-500" : "border-blue-500 text-blue-500"} bg-transparent rounded-full py-1.5 flex items-center justify-center gap-1 text-xs font-medium`}
+          className={`border ${gender === "Female" ? "border-[#D8B5F4] text-[#D8B5F4]" : "border-[#764AF7] text-[#764AF7]"} bg-transparent rounded-full py-1.5 flex items-center justify-center gap-1 text-xs font-medium`}
           onClick={saveScreenshot}>
           Save
           <Download className="h-3 w-3" />
         </button>
         <button
           onClick={shareScreenshot}
-          className={`${gender === "Female" ? "bg-pink-500" : "bg-blue-500"} rounded-full py-1.5 flex items-center justify-center gap-1 text-xs font-medium text-white`}>
+          className={`${gender === "Female" ? "bg-[#D8B5F4] text-black" : "bg-[#764AF7] text-white"} rounded-full py-1.5 flex items-center justify-center gap-1 text-xs font-medium`}>
           Share
           <Send className="h-3 w-3" />
         </button>
@@ -1043,7 +1059,7 @@ export function ScreenPreview({
                          {/* Brand */}
                          {gender==='Male' && (
                 <div className="absolute bottom-16 w-full text-center italic left-0">
-                  <p className="text-blue-500 font-semibold flex items-center justify-center gap-2 bg-[#121212]">
+                  <p className="text-white font-semibold flex items-center justify-center gap-2 bg-[#121212]">
                     Strand AI
                    <Image src={logofemale} alt="Logo Male" className="w-5"/> 
                   </p>
@@ -1052,7 +1068,7 @@ export function ScreenPreview({
         <div className="grid grid-cols-2 gap-4">
           <button
             className={`border ${
-              gender === "Female" ? "border-pink-500 text-pink-500" : "border-blue-500 text-blue-500"
+              gender === "Female" ? "border-[#D8B5F4] text-[#D8B5F4]" : "border-[#764AF7] text-[#764AF7]"
             } bg-transparent rounded-full py-2 flex items-center justify-center gap-2 text-sm font-medium`}
             onClick={saveScreenshot}
           >
@@ -1062,8 +1078,8 @@ export function ScreenPreview({
           <button 
             onClick={shareScreenshot}
             className={`${
-              gender === "Female" ? "bg-pink-500" : "bg-blue-500"
-            }  rounded-full py-2 flex items-center justify-center gap-2 text-sm font-medium text-white`}
+              gender === "Female" ? "bg-[#D8B5F4] text-black" : "bg-[#764AF7] text-white"
+            }  rounded-full py-2 flex items-center justify-center gap-2 text-sm font-medium `}
           >
             Share
             <Send className=" h-[14px] w-[14px]" />
