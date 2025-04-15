@@ -455,19 +455,19 @@ export function ScreenPreview({
                   <h1
                     className={` flex items-center  ${gender==="Male" && "justify-center"} gap-2 font-medium text-center flex-1 ${gender === "Female" && screenType === "Hair Health" ? "text-pink-300" : ""}`}
                   >
-                    {screenType === "Hair Style" && (
-                      <div className="flex flex-col">
-                        <span>Hair Style</span>
-                        <span className="text-sm font-normal">Recommendations</span>
-                      </div>
-                    )}
+                  
                     {screenType === "Action Plan" && (
                       <div className="flex items-center justify-center">
                         <span>{actionMetrics.title}</span>
                         {gender === "Female" ? "🌸" : "🔄"}
                       </div>
                     )}
-               <FileChartColumnIncreasing className="w-4 h-4"/>     {screenType !== "Hair Style" && screenType !== "Action Plan" && screenType}
+               <FileChartColumnIncreasing className="w-4 h-4"/>     {screenType !== "Hair Style" && screenType !== "Action Plan" && screenType}   {screenType === "Hair Style" && (
+                      <div className="flex">
+                       
+                        <span className="text-sm font-normal">Hair Recommendations</span>
+                      </div>
+                    )}
                   </h1>
                   {gender === "Male" ? (
                     <></>
@@ -478,15 +478,15 @@ export function ScreenPreview({
                 </div>
           
                 </div>
-                {gender==='Female' && (
+                {/* {gender==='Female' && (
                 <div className=" w-full text-center italic">
                   <p className={gender === "Female" ? "text-white font-semibold flex justify-center gap-2 items-center" : "text-white font-semibold flex items-center justify-center gap-2"}>
                     Strand AI
-                    {/* <Brush className="w-4 h-4"/> */}
+                    
                     <Image src={logofemale} alt="Logo Female"  className="h-7"/>
                   </p>
                 </div>
-)}
+)} */}
                 {/* Images */}
                 {screenType !== "Hair Style" && screenType !== "Action Plan" && (
                   <div className="grid grid-cols-4 gap-1 px-6 mt-2">
@@ -516,6 +516,7 @@ export function ScreenPreview({
 
                 {/* Hair Attributes Screen */}
                 {screenType === "Hair Attributes" && (
+                  <>
                   <div className="grid grid-cols-2 gap-3 p-4">
                     {visibleAttributeMetrics.map(({ key, value, percentage }) => (
                       <div key={key}                            className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-200/20 bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257] "}`}>
@@ -535,7 +536,15 @@ export function ScreenPreview({
                       </div>
                     ))}
                   </div>
+                  <div className=" w-full text-center italic left-0">
+                  <p className="text-white font-semibold flex items-center justify-center bg-[#121212]">
+                    Strand   <Image src={logomale} alt="Logo Male" className="ml-1 w-5"/>  AI
+                 
+                  </p>
+                </div>
+                  </>
                 )}
+                
 
                 {/* Hair Health Screen */}
                 {screenType === "Hair Health" && (
@@ -617,6 +626,12 @@ export function ScreenPreview({
                         </div>
                       </div>
                     )} */}
+                                      <div className=" w-full text-center italic left-0">
+                  <p className="text-white font-semibold flex items-center justify-center bg-[#121212]">
+                    Strand   <Image src={logomale} alt="Logo Male" className="ml-1 w-5"/>  AI
+                 
+                  </p>
+                </div>
                   </div>
                 )}
 
@@ -624,7 +639,7 @@ export function ScreenPreview({
              
         {/* Hair Loss Screen */}
         {screenType === "Recession Analysis" && (
-          <div className="px-3 space-y-2 pt-6 h-full">
+          <div className="px-3 space-y-2 pt-2 h-full">
             {/* Hairloss Stage with Gauge - Reduced padding and margins */}
             {lossMetrics.hairlossStage.visible && (
               <div    className={`bg-[#2C2D30] p-3 rounded-2xl ${gender === "Female" ? "border border-pink-200/20 bg-gradient-to-b from-[#2C2D30] via-[#2C2D30] to-[#3A2A35]" : "border  border-[#505257] " }`}>
@@ -782,18 +797,24 @@ export function ScreenPreview({
                 </div>
               </div>
             )}
+                              <div className=" w-full text-center italic left-0">
+                  <p className="text-white font-semibold flex items-center justify-center bg-[#121212]">
+                    Strand   <Image src={logomale} alt="Logo Male" className="ml-1 w-5"/>  AI
+                 
+                  </p>
+                </div>
 
             {/* Action Buttons - Fixed position at bottom */}
             <div className="absolute bottom-4 w-full px-3">
               {/* Brand */}
-              {gender === 'Male' && (
+              {/* {gender === 'Male' && ( */}
                 <div className="w-full text-center italic mb-2">
                   <p className="text-blue-500 font-semibold flex items-center justify-center gap-1 bg-[#121212] text-xs">
-                    Strand AI
-                    <Image src={logomale} alt="Logo Male" className="w-4" />
+                    Strand    <Image src={logomale} alt="Logo Male" className="w-4" /> AI
+                 
                   </p>
                 </div>
-              )}
+              {/* )} */}
               <div className="grid grid-cols-2 gap-3">
                 <button
                   className={`border ${gender === "Female" ? "border-[#D8B5F4] text-[#D8B5F4]" : "border-[#764AF7] text-[#764AF7]"} bg-transparent rounded-full py-1.5 flex items-center justify-center gap-1 text-xs font-medium`}
@@ -905,6 +926,12 @@ export function ScreenPreview({
 
                       </div>
                     )}
+                                      <div className=" w-full text-center italic left-0">
+                  <p className="text-white font-semibold flex items-center justify-center bg-[#121212]">
+                    Strand   <Image src={logomale} alt="Logo Male" className="ml-1 w-5"/>  AI
+                 
+                  </p>
+                </div>
                   </div>
                 )}
 
@@ -939,6 +966,7 @@ export function ScreenPreview({
           <div className="text-sm font-bold">{actionMetrics.duration.value}</div>
         </div>
       )}
+      
     </div>
 
     {/* Main Image - Kept but with modest height reduction */}
@@ -1019,18 +1047,24 @@ export function ScreenPreview({
         <span>SHOP NOW</span>
       </button>
     )}
+                      <div className=" w-full text-center italic left-0">
+                  <p className="text-white font-semibold flex items-center justify-center bg-[#121212]">
+                    Strand   <Image src={logomale} alt="Logo Male" className="ml-1 w-5"/>  AI
+                 
+                  </p>
+                </div>
     
     {/* Action Buttons - Fixed position at bottom */}
     <div className="absolute bottom-4 w-full">
       {/* Brand Logo */}
-      {gender === 'Male' && (
+      {/* {gender === 'Male' && ( */}
         <div className="w-full text-center italic mb-2">
           <p className="text-white font-semibold flex items-center justify-center gap-1 bg-[#121212] text-xs">
-            Strand AI
-            <Image src={logomale} alt="Logo Male" className="w-4" />
+            Strand   <Image src={logomale} alt="Logo Male" className="w-4" /> AI
+          
           </p>
         </div>
-      )}
+      {/* )} */}
       
       {/* Save/Share Buttons */}
       <div className="grid grid-cols-2 gap-3">
@@ -1049,22 +1083,18 @@ export function ScreenPreview({
       </div>
     </div>
   </div>
+
 )}
 
               
 
        
                 {/* Action Buttons */}
-                <div className="absolute bottom-0 w-full bg-[#121212] py-4 px-8 shadow-[0_-2px_10px_rgba(0,0,0,0.5)]">
+                <div className="absolute bottom-0 w-full bg-[#121212]  px-8 shadow-[0_-2px_10px_rgba(0,0,0,0.5)]">
                          {/* Brand */}
-                         {gender==='Male' && (
-                <div className="absolute bottom-16 w-full text-center italic left-0">
-                  <p className="text-white font-semibold flex items-center justify-center gap-2 bg-[#121212]">
-                    Strand AI
-                   <Image src={logofemale} alt="Logo Male" className="w-5"/> 
-                  </p>
-                </div>
-)}
+                         {/* {gender==='Male' && ( */}
+              
+{/* )} */}
         <div className="grid grid-cols-2 gap-4">
           <button
             className={`border ${
