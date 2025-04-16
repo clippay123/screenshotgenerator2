@@ -201,22 +201,22 @@ export function ScreenPreview({
 
   const getProgressBarColor = (percentage: number, isHealth = false) => {
     // For female, always use pink-based colors
-    if (gender === "Female") {
-      if (percentage >= 80) return "bg-green-500"
-      if (percentage >= 50) return "bg-pink-400"
-      return "bg-red-500"
-    }
+    // if (gender === "Female") {
+    //   if (percentage >= 80) return "bg-green-500"
+    //   if (percentage >= 50) return "bg-pink-400"
+    //   return "bg-red-500"
+    // }
 
     // For health metrics, use red/orange/green
     if (isHealth) {
-      if (percentage < 40) return "bg-red-500"
-      if (percentage < 70) return "bg-orange-500"
+      if (percentage < 20) return "bg-red-500"
+      if (percentage < 70) return "bg-[#FF6600]"
       return "bg-green-500"
     }
 
     // For regular metrics (male)
     if (percentage >= 80) return "bg-green-500"
-    if (percentage >= 50) return "bg-[#764AF7]"
+    if (percentage >= 21) return "bg-[#FF6600]"
     return "bg-red-500"
   }
 
